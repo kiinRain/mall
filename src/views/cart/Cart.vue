@@ -1,20 +1,13 @@
 <template>
-  <div id="cart">
-    
-  </div>
+  <div id="cart">cart</div>
 </template>
 
 <script>
- 
-
-	export default {
-		name: "Cart",
-    components: {
-		 
-    },
-  }
+export default {
+  name: "Cart",
+  components: {},
+};
 </script>
 
 <style scoped>
-  
 </style>

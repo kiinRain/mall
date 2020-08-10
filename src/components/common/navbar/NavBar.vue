@@ -1,8 +1,8 @@
 <template>
   <div class="nav-bar">
-    <div class="left"><slot name="left"></slot>1</div>
-    <div class="center"><slot name="center"></slot>2</div>
-    <div class="right"><slot name="right"></slot>3</div>
+    <div class="left"><slot name="left"></slot></div>
+    <div class="center"><slot name="center"></slot></div>
+    <div class="right"><slot name="right"></slot></div>
    
   </div>
 </template>
@@ -17,14 +17,16 @@ export default {
 .nav-bar{
   display: flex;
   line-height: 44px;
+  text-align: center;
+  box-shadow: 0 1px 1px rgba(100, 100, 100, .1);
 }
 .left,.right{
-  background: rgb(143, 143, 143);
+  /* background: rgb(143, 143, 143); */
   height: 44px;
   width: 60px;
 }
 .center{
   flex: 1;
-  background: hotpink;
+  /* background: hotpink; */
 }
 </style>
