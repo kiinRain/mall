@@ -7,21 +7,23 @@
     <recommend-view :recommends="recommends"></recommend-view>
     <feature-view></feature-view>
     <tab-control :titles="['流行', '新款', '精选']" @tabClick="tabClick"></tab-control>
-    <div class="goodList">
-      <!-- <span v-text="goods[itemindex]" ></span> -->
-      <div class="goods">
-        <div
-          v-for="item in goodsimg[goodsindex]"
-          :key="item.iid"
-          @click="goodsclick"
-          link="/detail"
-          class="goodsItem"
-        >
-          <img :src="item.imgurl" :alt="item.imgsub" />
-          <p>{{item.imgsub}}</p>
+    <keep-alive>
+      <div class="goodList">
+        <!-- <span v-text="goods[itemindex]" ></span> -->
+        <div class="goods">
+          <div
+            v-for="item in goodsimg[goodsindex]"
+            :key="item.iid"
+            @click="goodsClick(item.iid)"
+            link="/detail"
+            class="goodsItem"
+          >
+            <img :src="item.imgurl" :alt="item.imgsub" />
+            <p>{{item.imgsub}}</p>
+          </div>
         </div>
       </div>
-    </div>
+    </keep-alive>
   </div>
 </template>
 
@@ -30,6 +32,7 @@ import NavBar from "common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "@/views/home/childComps/RecommendView";
 import FeatureView from "@/views/home/childComps/FeatureView";
+import EventBus from "@/store/eventBus";
 
 import TabControl from "@/components/content/tabControl/TabControl";
 
@@ -121,14 +124,14 @@ export default {
       ],
       itemindex: 0,
       goodsindex: 0,
-      
     };
   },
   created() {
+    const that = this
     getHomeMultidata()
       .then((res) => {
-        this.banners = res.data.banner;
-        this.recommends = res.data.recommend;
+        that.banners = res.data.banner;
+        that.recommends = res.data.recommend;
       })
       .catch((err) => {
         console.log(err);
@@ -140,18 +143,17 @@ export default {
       this.itemindex = index;
       this.goodsindex = index;
     },
-    goodsclick(goodsimg) {
-      // console.log(this.goodsimg[goodsindex].iid);
-      if(this.itemindex ){
-        this.imgList = goodsimg 
-        
+    goodsClick(iid) {
+      this.$router.push({ path: "/detail/" + iid });
+      console.log(this.goodsimg);
+      for(let i = 0; i < this.goodsimg.length; i ++) {
+        for (let j = 0; j < this.goodsimg[i].length; j ++) {
+          if (this.goodsimg[i][j]["iid"] == iid) {
+            this.$store.commit("changeCurrentGoodInfo", { currentGoodInfo: this.goodsimg[i][j] })
+            return
+          }
+        }
       }
-      console.log(this.imgList);
-      console.log(this);
-      console.log(this.itemindex);
-      console.log(this.goodsimg[this.itemindex]);
-      this.$router.push({ path: "/detail/" });
-      //
     },
   },
 };
@@ -170,7 +172,8 @@ export default {
   top: 0;
 }
 .goodList {
-  height: 200vh;
+  /* height: 150vh; */
+  margin-bottom: 49px;
 }
 .goods {
   display: flex;
