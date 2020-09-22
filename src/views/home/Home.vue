@@ -32,7 +32,6 @@ import NavBar from "common/navbar/NavBar";
 import HomeSwiper from "./childComps/HomeSwiper";
 import RecommendView from "@/views/home/childComps/RecommendView";
 import FeatureView from "@/views/home/childComps/FeatureView";
-import EventBus from "@/store/eventBus";
 
 import TabControl from "@/components/content/tabControl/TabControl";
 

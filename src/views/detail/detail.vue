@@ -15,7 +15,6 @@
 </template>
 
 <script>
-import EventBus from "@/store/eventBus";
 import NavBar from '@/components/common/navbar/NavBar'
 export default {
   name: "Detail",
